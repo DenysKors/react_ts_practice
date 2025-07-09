@@ -40,11 +40,12 @@ const menu: Pizza[] = [
 //   { id: (newPizzaId += 1), name: "Veggie", price: 9 },
 // ];
 
-function addNewPizza(name: string, price: number): void {
+function addNewPizza(pizzaObj: Omit<Pizza, "id">): Pizza {
   newPizzaId += 1;
-  const newPizza = { name, price, id: newPizzaId };
+  const newPizza: Pizza = { id: newPizzaId, ...pizzaObj };
   menu.push(newPizza);
   console.log(menu);
+  return newPizza;
 }
 
 function placeOrder(pizzaName: string): Pizza | void {
@@ -86,7 +87,7 @@ function getPizzaDetail(identifier: string | number): Pizza | undefined | void {
   } else return alert("You can find pizza only by name or id");
 }
 
-addNewPizza("Four cheeses", 15);
+addNewPizza({ name: "Four cheeses", price: 15 });
 placeOrder("Pepperoni");
 placeOrder("Hawaiian");
 placeOrder("Margherita");
