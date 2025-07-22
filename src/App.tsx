@@ -172,8 +172,28 @@ console.log(highAndLowNumber("1"));
 
 // Usually when you buy something, you're asked whether your credit card number, phone number or answer to your most secret question is still correct.
 // However, since someone could look over your shoulder, you don't want that shown on your screen. Instead, we mask it.
-// Your task is to write a function maskify, which changes all but the last four characters into '#'.
-// "4556364607935616"-- > "############5616";
-// "64607935616"-- > "#######5616";
+// Your task is to write a function maskify, which changes all but the last four characters into '*'.
+// "4556364607935616"-- > "*************5616";
+// "64607935616"-- > "*********5616";
 // "1"-- > "1";
 // ""-- > "";
+
+function maskify(secret: string): string {
+  const secretLength = secret.length;
+  if (secretLength <= 4) return secret;
+
+  const unmasked = secret.slice(-4);
+  const maskedSecret = unmasked.padStart(secretLength, "*");
+  return maskedSecret;
+}
+
+console.log(maskify("4556364607935616"));
+console.log(maskify("64607935616"));
+console.log(maskify("1"));
+
+// Complete the method / function so that it converts dash / underscore delimited words into camel casing.
+// The first word within the output should be capitalized only if the original word was capitalized(known as Upper Camel Case, also often referred to as Pascal case).
+// The next words should be always capitalized.
+// "the-stealth-warrior" gets converted to "theStealthWarrior"
+// "The_Stealth_Warrior" gets converted to "TheStealthWarrior"
+// "The_Stealth-Warrior" gets converted to "TheStealthWarrior"
