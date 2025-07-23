@@ -197,3 +197,20 @@ console.log(maskify("1"));
 // "the-stealth-warrior" gets converted to "theStealthWarrior"
 // "The_Stealth_Warrior" gets converted to "TheStealthWarrior"
 // "The_Stealth-Warrior" gets converted to "TheStealthWarrior"
+
+function camelCaseConverter(text: string): string[] | string {
+  if (typeof text !== "string") return "Only strings required";
+  const re = /[_-]/;
+  const splittedText = text.split(re);
+  const capitalizedStrArr = splittedText.map((text, idx) => {
+    if (idx === 0) return text;
+    else {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+  });
+  const convertedText = capitalizedStrArr.join("");
+  return convertedText;
+}
+
+console.log(camelCaseConverter("the-stealth-warrior"));
+console.log(camelCaseConverter("The_Stealth-Warrior"));
