@@ -214,3 +214,48 @@ function camelCaseConverter(text: string): string[] | string {
 
 console.log(camelCaseConverter("the-stealth-warrior"));
 console.log(camelCaseConverter("The_Stealth-Warrior"));
+
+// Create a function nextVersion, that will take a string in parameter, and will return a string containing the next version number.
+// All numbers, except the first one, must be lower than 10: if there are, you have to set them to 0 and increment the next number in sequence.
+// Current           ->  Next version
+// "1.2.3"           ->  "1.2.4"
+// "0.9.9"           ->  "1.0.0"
+// "1"               ->  "2"
+// "1.2.3.4.5.6.7.8" ->  "1.2.3.4.5.6.7.9"
+// "9.9"             ->  "10.0"
+
+function nextVersion(version: string): string | string[] {
+  if (typeof version !== "string") return "Only strings required";
+  if (version.length === 1) {
+    const updateVersion = Number(version) + 1;
+    return updateVersion.toString();
+  }
+  const versionReversArr = version.split(".").reverse();
+
+  let increment = 0;
+
+  const newRevArr = versionReversArr.map((value, idx, arr) => {
+    if (idx === 0 && Number(value) === 9) {
+      increment = 1;
+      return "0";
+    } else if (idx === 0 && Number(value) !== 9) {
+      const newValue = Number(value) + 1;
+      return newValue.toString();
+    } else if (idx === arr.length - 1) {
+      const newValue = Number(value) + increment;
+      return newValue.toString();
+    } else if (idx !== 0 && Number(value) !== 9) {
+      const newValue = Number(value) + increment;
+      increment = 0;
+      return newValue.toString();
+    } else if (idx !== 0 && Number(value) === 9 && increment === 1) {
+      return "0";
+    } else if (idx !== 0 && Number(value) === 9 && increment === 0)
+      return value;
+  });
+
+  const nextVersion = newRevArr.reverse().join(".");
+  return nextVersion;
+}
+
+console.log(nextVersion("10.1.5.9.9"));
