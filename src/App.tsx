@@ -98,11 +98,14 @@ console.log(orderQueue);
 
 // CODEWARS KATAS
 
-// []-- > "no one likes this"
-// ["Peter"]-- > "Peter likes this"
-// ["Jacob", "Alex"]-- > "Jacob and Alex like this"
-// ["Max", "John", "Mark"]-- > "Max, John and Mark like this"
-// ["Alex", "Jacob", "Mark", "Max"]-- > "Alex, Jacob and 2 others like this";
+// KATA #1
+/* 
+[]-- > "no one likes this"
+ ["Peter"]-- > "Peter likes this"
+ ["Jacob", "Alex"]-- > "Jacob and Alex like this"
+ ["Max", "John", "Mark"]-- > "Max, John and Mark like this"
+ ["Alex", "Jacob", "Mark", "Max"]-- > "Alex, Jacob and 2 others like this";
+ */
 
 function showWhoLiked(names: string[]): string {
   const namesLength = names.length;
@@ -127,8 +130,11 @@ console.log(
   showWhoLiked(["Alex", "Jacob", "Mark", "Max", "Max", "Max", "Max", "Max"])
 );
 
-// Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
-// Example createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) // => returns "(123) 456-7890"
+// KATA #2
+/* 
+Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
+Example createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) // => returns "(123) 456-7890"
+*/
 
 function createPhoneNumber(digits: number[]): string | Error {
   const amountOfDigits = digits.length;
@@ -145,12 +151,15 @@ function createPhoneNumber(digits: number[]): string | Error {
 console.log(createPhoneNumber([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]));
 console.log(createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]));
 
-// In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.
-// Kata.HighAndLow("1 2 3 4 5"); // return "5 1"
+// KATA #3
+/*
+In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.
+Kata.HighAndLow("1 2 3 4 5"); // return "5 1"
 
-// All numbers are valid Int32, no need to validate them.
-// There will always be at least one number in the input string.
-// Output string must be two numbers separated by a single space, and highest number is first.
+All numbers are valid Int32, no need to validate them.
+There will always be at least one number in the input string.
+Output string must be two numbers separated by a single space, and highest number is first.
+*/
 
 function highAndLowNumber(numbers: string): string {
   const splittedArr = numbers.split(" ");
@@ -170,13 +179,16 @@ console.log(highAndLowNumber("1 2 3 4 5"));
 console.log(highAndLowNumber("1 9 3 4 -5"));
 console.log(highAndLowNumber("1"));
 
-// Usually when you buy something, you're asked whether your credit card number, phone number or answer to your most secret question is still correct.
-// However, since someone could look over your shoulder, you don't want that shown on your screen. Instead, we mask it.
-// Your task is to write a function maskify, which changes all but the last four characters into '*'.
-// "4556364607935616"-- > "*************5616";
-// "64607935616"-- > "*********5616";
-// "1"-- > "1";
-// ""-- > "";
+//KATA #4
+/*
+Usually when you buy something, you're asked whether your credit card number, phone number or answer to your most secret question is still correct.
+However, since someone could look over your shoulder, you don't want that shown on your screen. Instead, we mask it.
+Your task is to write a function maskify, which changes all but the last four characters into '*'.
+"4556364607935616"-- > "*************5616";
+"64607935616"-- > "*********5616";
+"1"-- > "1";
+""-- > "";
+*/
 
 function maskify(secret: string): string {
   const secretLength = secret.length;
@@ -191,12 +203,15 @@ console.log(maskify("4556364607935616"));
 console.log(maskify("64607935616"));
 console.log(maskify("1"));
 
-// Complete the method / function so that it converts dash / underscore delimited words into camel casing.
-// The first word within the output should be capitalized only if the original word was capitalized(known as Upper Camel Case, also often referred to as Pascal case).
-// The next words should be always capitalized.
-// "the-stealth-warrior" gets converted to "theStealthWarrior"
-// "The_Stealth_Warrior" gets converted to "TheStealthWarrior"
-// "The_Stealth-Warrior" gets converted to "TheStealthWarrior"
+//KATA #5
+/*
+Complete the method / function so that it converts dash / underscore delimited words into camel casing.
+The first word within the output should be capitalized only if the original word was capitalized(known as Upper Camel Case, also often referred to as Pascal case).
+The next words should be always capitalized.
+"the-stealth-warrior" gets converted to "theStealthWarrior"
+"The_Stealth_Warrior" gets converted to "TheStealthWarrior"
+"The_Stealth-Warrior" gets converted to "TheStealthWarrior"
+*/
 
 function camelCaseConverter(text: string): string[] | string {
   if (typeof text !== "string") return "Only strings required";
@@ -215,14 +230,17 @@ function camelCaseConverter(text: string): string[] | string {
 console.log(camelCaseConverter("the-stealth-warrior"));
 console.log(camelCaseConverter("The_Stealth-Warrior"));
 
-// Create a function nextVersion, that will take a string in parameter, and will return a string containing the next version number.
-// All numbers, except the first one, must be lower than 10: if there are, you have to set them to 0 and increment the next number in sequence.
-// Current           ->  Next version
-// "1.2.3"           ->  "1.2.4"
-// "0.9.9"           ->  "1.0.0"
-// "1"               ->  "2"
-// "1.2.3.4.5.6.7.8" ->  "1.2.3.4.5.6.7.9"
-// "9.9"             ->  "10.0"
+//KATA #6
+/*
+Create a function nextVersion, that will take a string in parameter, and will return a string containing the next version number.
+All numbers, except the first one, must be lower than 10: if there are, you have to set them to 0 and increment the next number in sequence.
+Current           ->  Next version
+"1.2.3"           ->  "1.2.4"
+"0.9.9"           ->  "1.0.0"
+"1"               ->  "2"
+"1.2.3.4.5.6.7.8" ->  "1.2.3.4.5.6.7.9"
+"9.9"             ->  "10.0"
+*/
 
 function nextVersion(version: string): string | string[] {
   if (typeof version !== "string") return "Only strings required";
@@ -259,3 +277,31 @@ function nextVersion(version: string): string | string[] {
 }
 
 console.log(nextVersion("10.1.5.9.9"));
+
+//KATA #7
+/*
+Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence,
+which is the number of times you must multiply the digits in num until you reach a single digit.
+39 --> 3 (because 3*9 = 27, 2*7 = 14, 1*4 = 4 and 4 has only one digit, there are 3 multiplications)
+999 --> 4 (because 9*9*9 = 729, 7*2*9 = 126, 1*2*6 = 12, and finally 1*2 = 2, there are 4 multiplications)
+4 --> 0 (because 4 is already a one-digit number, there is no multiplication)
+*/
+
+function persistence(num: number): string | number {
+  let numStringArr = num.toString().split("");
+
+  if (numStringArr.length === 1) return 0;
+  let counter = 0;
+
+  while (numStringArr.length > 1) {
+    const multiply = numStringArr.reduce(
+      (accum, num) => accum * Number(num),
+      1
+    );
+    numStringArr = multiply.toString().split("");
+    counter += 1;
+  }
+  return counter;
+}
+
+console.log(persistence(999));
