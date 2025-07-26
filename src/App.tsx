@@ -1,7 +1,7 @@
 import "./App.css";
 
 function App() {
-  return <h1>Typescript practice</h1>;
+  return <h1>Typescript practice with Codewars katas</h1>;
 }
 
 export default App;
@@ -322,7 +322,7 @@ If the input string is empty, return an empty string. The words in the input Str
 ""  -->  ""
 */
 
-function sortWords(sentence: string): string | string[] | null {
+function sortWords(sentence: string): string {
   if (sentence.length === 0) return "";
 
   const re = /[1-9]/g;
@@ -331,8 +331,8 @@ function sortWords(sentence: string): string | string[] | null {
   const sortedArr = [];
 
   for (let i = 1; i <= stringArr.length; i += 1) {
-    const match = foundNumArr?.indexOf(i.toString());
-    if (typeof match !== "undefined") sortedArr.push(stringArr[match]);
+    const matchIdx = foundNumArr?.indexOf(i.toString());
+    if (typeof matchIdx !== "undefined") sortedArr.push(stringArr[matchIdx]);
   }
   const sortedSentence = sortedArr.join(" ");
 
@@ -341,3 +341,45 @@ function sortWords(sentence: string): string | string[] | null {
 
 console.log(sortWords("is2 Thi1s T4est 3a"));
 console.log(sortWords("4of Fo1r pe6ople g3ood th5e the2"));
+
+// KATA #9
+/*
+You are given a secret message you need to decipher. Here are the things you need to know to decipher it:
+For each word:
+  the second and the last letter is switched (e.g. Hello becomes Holle)
+  the first letter is replaced by its character code (e.g. H becomes 72)
+  there are no special characters used, only letters and spaces
+  words are separated by a single space
+  there are no leading or trailing spaces
+
+'72olle 103doo 100ya' --> 'Hello good day'
+'82yade 115te 103o'   --> 'Ready set go'
+*/
+
+function decryptMsg(msg: string): string | string[] {
+  const re = /[0-9]/g;
+
+  const stringArr = msg.split(" ").map((char) => {
+    const foundNumber = char.match(re)?.join("");
+    const charFromCode = String.fromCharCode(Number(foundNumber));
+    const numLength = foundNumber?.length;
+    return charFromCode + char.slice(numLength);
+  });
+
+  const replacedCharArr = stringArr.map((word) => {
+    const splittedWord = word.split("");
+    const charToSplit1 = word.charAt(splittedWord.length - 1);
+    const charToSplit2 = word.charAt(1);
+
+    splittedWord.splice(1, 1, charToSplit1);
+    splittedWord.splice(splittedWord.length - 1, 1, charToSplit2);
+    const joined = splittedWord.join("");
+    return joined;
+  });
+
+  const joinedMsg = replacedCharArr.join(" ");
+  return joinedMsg;
+}
+
+console.log(decryptMsg("72olle 103doo 100ya"));
+console.log(decryptMsg("82yade 115te 103o"));
