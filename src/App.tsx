@@ -383,3 +383,38 @@ function decryptMsg(msg: string): string | string[] {
 
 console.log(decryptMsg("72olle 103doo 100ya"));
 console.log(decryptMsg("82yade 115te 103o"));
+
+// KATA #10
+
+/*
+Define a class called Lamp. It will have a string attribute for color and boolean attribute, on, that will refer to whether the lamp is on or not. 
+Define your class constructor with a parameter for color and assign on as false on initialize.
+Give the lamp an instance method called toggle_switch that will switch the value of the on attribute.
+Define another instance method called state that will return "The lamp is on." if it's on and "The lamp is off." otherwise.
+*/
+
+class Lamp {
+  color: string;
+  on: boolean;
+
+  constructor(color: string) {
+    this.color = color;
+    this.on = false;
+  }
+
+  toggleSwitch() {
+    this.on = !this.on;
+  }
+
+  get state() {
+    const { on } = this;
+    return `The lamp is ${on ? "On" : "Off"} now`;
+  }
+}
+
+const lamp = new Lamp("green");
+console.log(lamp);
+lamp.toggleSwitch();
+console.log(lamp.state);
+lamp.toggleSwitch();
+console.log(lamp.state);
