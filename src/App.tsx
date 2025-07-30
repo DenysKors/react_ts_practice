@@ -385,7 +385,6 @@ console.log(decryptMsg("72olle 103doo 100ya"));
 console.log(decryptMsg("82yade 115te 103o"));
 
 // KATA #10
-
 /*
 Define a class called Lamp. It will have a string attribute for color and boolean attribute, on, that will refer to whether the lamp is on or not. 
 Define your class constructor with a parameter for color and assign on as false on initialize.
@@ -418,3 +417,40 @@ lamp.toggleSwitch();
 console.log(lamp.state);
 lamp.toggleSwitch();
 console.log(lamp.state);
+
+// KATA #11
+/*
+Here's the deal:
+  It must start with a hashtag (#).
+  All words must have their first letter capitalized.
+  If the final result is longer than 140 chars it must return false.
+  If the input or the result is an empty string it must return false.
+  " Hello there thanks for trying my Kata"  =>  "#HelloThereThanksForTryingMyKata"
+"   Hello     World   "  =>  "#HelloWorld"
+""  =>  false
+ */
+
+function createHashtag(text: string): string | boolean {
+  const trimmedText = text.trim();
+  if (trimmedText === "") return false;
+
+  const splittedTextArr = trimmedText.split(" ");
+  const separatedWords: string[] = [];
+
+  splittedTextArr.forEach((char) => {
+    if (char === "") return;
+
+    const upCaseChar = char.charAt(0).toUpperCase() + char.slice(1);
+    separatedWords.push(upCaseChar);
+  });
+
+  const joinedText = separatedWords.join("");
+  const hashTagText = joinedText.padStart(joinedText.length + 1, "#");
+
+  if (hashTagText.length > 140) return false;
+
+  return hashTagText;
+}
+
+console.log(createHashtag("   hello     world   "));
+console.log(createHashtag(" Hello there thanks for trying my Kata"));
