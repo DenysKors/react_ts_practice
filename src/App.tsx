@@ -454,3 +454,32 @@ function createHashtag(text: string): string | boolean {
 
 console.log(createHashtag("   hello     world   "));
 console.log(createHashtag(" Hello there thanks for trying my Kata"));
+
+// KATA #12
+/*
+Write a function that when given a URL as a string, parses out just the domain name and returns it as a string.
+url = "http://github.com/carbonfive/raygun" -> domain name = "github"
+url = "http://www.zombie-bites.com"         -> domain name = "zombie-bites"
+url = "https://www.cnet.com"                -> domain name = cnet"
+*/
+
+function extractDomain(url: string): string | void {
+  let removedProtocol = "";
+  let domainStart = "";
+
+  if (url.startsWith("https://")) {
+    removedProtocol = url.slice(8);
+  } else if (url.startsWith("http://")) {
+    removedProtocol = url.slice(7);
+  } else return "Url must starts with protocol";
+
+  if (removedProtocol.startsWith("www")) {
+    domainStart = removedProtocol.slice(4);
+  } else domainStart = removedProtocol;
+
+  const dotIdx = domainStart.search(/[.]/);
+  const domainUrl = domainStart.slice(0, dotIdx);
+  return domainUrl;
+}
+
+console.log(extractDomain("https://www.cnet.com"));
