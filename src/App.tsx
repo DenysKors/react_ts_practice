@@ -482,4 +482,30 @@ function extractDomain(url: string): string | void {
   return domainUrl;
 }
 
-console.log(extractDomain("https://www.cnet.com"));
+console.log(
+  extractDomain("https://www.codewars.com/kata/514a024011ea4fb54200004b")
+);
+
+// KATA #13
+/*
+Complete the function/method so that it takes a PascalCase string and returns the string in snake_case notation.
+Lowercase characters can be numbers. If the method gets a number as input, it should return a string.
+"TestController"  -->  "test_controller"
+"MoviesAndBooks"  -->  "movies_and_books"
+"App7Test"        -->  "app7_test"
+1                 -->  "1"
+*/
+
+function convertPascalCase(text: string | number): string | string[] {
+  if (typeof text === "number") return text.toString();
+
+  const replacedText = text.replace(/([A-Z])/g, " $1");
+  const splittedText = replacedText.trim().split(" ");
+
+  const lowerCaseChars = splittedText.map(
+    (word) => word.charAt(0).toLowerCase() + word.slice(1)
+  );
+  const snakeCaseText = lowerCaseChars.join("_");
+  return snakeCaseText;
+}
+console.log(convertPascalCase("MoviesAndBooks"));
