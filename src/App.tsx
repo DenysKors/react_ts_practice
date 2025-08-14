@@ -463,7 +463,7 @@ url = "http://www.zombie-bites.com"         -> domain name = "zombie-bites"
 url = "https://www.cnet.com"                -> domain name = cnet"
 */
 
-function extractDomain(url: string): string | void {
+function extractDomain(url: string): string {
   let removedProtocol = "";
   let domainStart = "";
 
@@ -496,7 +496,7 @@ Lowercase characters can be numbers. If the method gets a number as input, it sh
 1                 -->  "1"
 */
 
-function convertPascalCase(text: string | number): string | string[] {
+function convertPascalCase(text: string | number): string {
   if (typeof text === "number") return text.toString();
 
   const replacedText = text.replace(/([A-Z])/g, " $1");
@@ -509,3 +509,67 @@ function convertPascalCase(text: string | number): string | string[] {
   return snakeCaseText;
 }
 console.log(convertPascalCase("MoviesAndBooks"));
+
+// KATA #14
+/*
+You will be given a wishlist (array), containing all possible items. Each item is in the format: 
+{name: "toy car", size: "medium", clatters: "a bit", weight: "medium"} (Ruby version has an analog hash structure, see example below)
+You also get a list of presents (array), you see under the christmas tree, which have the following format each: 
+{size: "small", clatters: "no", weight: "light"}
+Your task is to return the names of all wishlisted presents that you might have gotten.
+  Possible values for size: "small", "medium", "large"
+  Possible values for clatters: "no", "a bit", "yes"
+  Possible values for weight: "light", "medium", "heavy"
+  Don't add any item more than once to the result
+  The order of names in the output doesn't matter
+  It's possible, that multiple items from your wish list have the same attribute values.
+  If they match the attributes of one of the presents, add all of them.
+*/
+
+type WishlistItem = {
+  name: string;
+  size: "small" | "medium" | "large";
+  clatters: "no" | "a bit" | "yes";
+  weight: "light" | "medium" | "heavy";
+};
+
+type PresentSpecs = Omit<WishlistItem, "name">;
+
+const wishlist: WishlistItem[] = [
+  { name: "Mini Puzzle", size: "small", clatters: "yes", weight: "light" },
+  { name: "Toy Car", size: "medium", clatters: "a bit", weight: "medium" },
+  { name: "Card Game", size: "small", clatters: "no", weight: "light" },
+  { name: "Toy Car", size: "medium", clatters: "a bit", weight: "medium" },
+  { name: "Teddy Bear", size: "small", clatters: "yes", weight: "light" },
+];
+
+const presentsSpecs: PresentSpecs[] = [
+  { size: "medium", clatters: "a bit", weight: "medium" },
+  { size: "small", clatters: "yes", weight: "light" },
+];
+
+function choosePresent(
+  wishlist: WishlistItem[],
+  presentsSpecs: PresentSpecs[]
+): string[] | string {
+  let matchedSpecs: string[] = [];
+
+  wishlist.forEach((item) => {
+    for (let i = 0; i < presentsSpecs.length; i += 1) {
+      if (
+        item.size === presentsSpecs[i].size &&
+        item.clatters === presentsSpecs[i].clatters &&
+        item.weight === presentsSpecs[i].weight
+      ) {
+        matchedSpecs.push(item.name);
+      }
+    }
+  });
+
+  if (matchedSpecs.length === 0) return "Presents not found";
+  const uniqueMatchedNames = matchedSpecs.filter(
+    (item, idx, arr) => arr.indexOf(item) === idx
+  );
+  return uniqueMatchedNames;
+}
+console.log(choosePresent(wishlist, presentsSpecs));
