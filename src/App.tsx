@@ -541,11 +541,13 @@ const wishlist: WishlistItem[] = [
   { name: "Card Game", size: "small", clatters: "no", weight: "light" },
   { name: "Toy Car", size: "medium", clatters: "a bit", weight: "medium" },
   { name: "Teddy Bear", size: "small", clatters: "yes", weight: "light" },
+  { name: "Constructor", size: "large", clatters: "no", weight: "heavy" },
 ];
 
 const presentsSpecs: PresentSpecs[] = [
   { size: "medium", clatters: "a bit", weight: "medium" },
   { size: "small", clatters: "yes", weight: "light" },
+  { size: "large", clatters: "a bit", weight: "heavy" },
 ];
 
 function choosePresent(
@@ -567,9 +569,55 @@ function choosePresent(
   });
 
   if (matchedSpecs.length === 0) return "Presents not found";
+
   const uniqueMatchedNames = matchedSpecs.filter(
     (item, idx, arr) => arr.indexOf(item) === idx
   );
+
   return uniqueMatchedNames;
 }
 console.log(choosePresent(wishlist, presentsSpecs));
+
+// KATA #15
+/*
+Your objective is to add formatting to a plain number to display it as price.
+Numbers should use the standard comma for every 3 numbers and dot to separate the cents, cents need to be truncated to 2 decimals, 
+in the case that the decimal part of the number is 1 character long or none you should add 0's so that the result will always have 2 decimal characters,
+the function will also evaluate negative numbers. Function should return a string 'NaN' if the input is not a valid number.
+const price = numberToPrice(13253.5123);
+console.log(price); // 13,253.51
+*/
+
+function formattedPrice(number: number): string {
+  if (Number.isNaN(number)) return "NaN";
+  const fixedCents = number.toFixed(2);
+  const isPositive = Math.sign(number);
+  const intNum = fixedCents.slice(0, -3);
+  let formattedIntNum = "";
+
+  if (isPositive === -1) {
+    formattedIntNum = intNum.slice(1);
+  } else {
+    formattedIntNum = intNum;
+  }
+
+  if (formattedIntNum.length <= 3) return fixedCents;
+  const numArr = formattedIntNum.split("").reverse();
+
+  const formattedArr = numArr.map((item, idx, arr) => {
+    if ((idx + 1) % 3 === 0 && idx !== arr.length - 1) {
+      return "," + item;
+    } else {
+      return item;
+    }
+  });
+  const formattedNum = formattedArr.reverse().join("") + fixedCents.slice(-3);
+
+  if (isPositive === -1) {
+    return "-" + formattedNum;
+  } else {
+    return formattedNum;
+  }
+}
+console.log(formattedPrice(13253.5123));
+console.log(formattedPrice(-1325300));
