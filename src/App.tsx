@@ -621,3 +621,42 @@ function formattedPrice(number: number): string {
 }
 console.log(formattedPrice(13253.5123));
 console.log(formattedPrice(-1325300));
+
+// KATA #16
+/*
+Write a function, which takes a non-negative integer (seconds) as input and returns the time in a human-readable format (HH:MM:SS)
+    HH = hours, padded to 2 digits, range: 00 - 99
+    MM = minutes, padded to 2 digits, range: 00 - 59
+    SS = seconds, padded to 2 digits, range: 00 - 59
+The maximum time never exceeds 359999 (99:59:59)
+You can find some examples in the test fixtures.
+*/
+
+function formattedTime(timeInSec: number): string | number {
+  const isPositive = Math.sign(timeInSec);
+  if (isPositive === -1) return "Only positive numbers allowed";
+
+  const amountOfHours = Math.floor(timeInSec / 3600);
+  const amountOfMinutes = Math.floor((timeInSec - amountOfHours * 3600) / 60);
+  const amountOfSeconds =
+    timeInSec - (amountOfHours * 3600 + amountOfMinutes * 60);
+
+  let numToStrHours = amountOfHours.toString();
+  let numToStrMinutes = amountOfMinutes.toString();
+  let numToStrSeconds = amountOfSeconds.toString();
+
+  if (numToStrHours.length === 1) {
+    numToStrHours = numToStrHours.padStart(2, "0");
+  }
+  if (numToStrMinutes.length === 1) {
+    numToStrMinutes = numToStrMinutes.padStart(2, "0");
+  }
+  if (numToStrSeconds.length === 1) {
+    numToStrSeconds = numToStrSeconds.padStart(2, "0");
+  }
+
+  return `${numToStrHours}:${numToStrMinutes}:${numToStrSeconds}`;
+}
+
+console.log(formattedTime(3600));
+console.log(formattedTime(359999));
