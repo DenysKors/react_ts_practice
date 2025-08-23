@@ -632,7 +632,7 @@ The maximum time never exceeds 359999 (99:59:59)
 You can find some examples in the test fixtures.
 */
 
-function formattedTime(timeInSec: number): string | number {
+function formattedTime(timeInSec: number): string {
   const isPositive = Math.sign(timeInSec);
   if (isPositive === -1) return "Only positive numbers allowed";
 
@@ -660,3 +660,30 @@ function formattedTime(timeInSec: number): string | number {
 
 console.log(formattedTime(3600));
 console.log(formattedTime(359999));
+
+// KATA #17
+/*
+The rgb function is incomplete. Complete it so that passing in RGB decimal values will result in a hexadecimal representation being returned. 
+Valid decimal values for RGB are 0 - 255. Any values that fall out of that range must be rounded to the closest valid value.
+Note: Your answer should always be 6 characters long, the shorthand with 3 will not work here.
+255, 255, 255 --> "FFFFFF"
+255, 255, 300 --> "FFFFFF"
+0, 0, 0       --> "000000"
+148, 0, 211   --> "9400D3"
+*/
+
+function rgbToHexConvert(red: number, green: number, blue: number): string {
+  if (255 < red || 255 < green || 255 < blue)
+    return "Number should be no more than 255";
+  else if (0 > red || 0 > green || 0 > blue) return "Number should be positive";
+
+  const redRounded = Math.round(red);
+  const greenRounded = Math.round(green);
+  const blueRounded = Math.round(blue);
+  const hexDigits = [redRounded, greenRounded, blueRounded]
+    .map((item) => item.toString(16).padStart(2, "0").toUpperCase())
+    .join("");
+  const hexNumber = `#${hexDigits}`;
+  return hexNumber;
+}
+console.log(rgbToHexConvert(148, 0, 211));
