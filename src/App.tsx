@@ -687,3 +687,51 @@ function rgbToHexConvert(red: number, green: number, blue: number): string {
   return hexNumber;
 }
 console.log(rgbToHexConvert(148, 0, 211));
+
+// KATA #18
+/*
+Write a function dirReduc which will take an array of strings and returns an array of strings with the needless 
+directions removed (W<->E or S<->N side by side). Not all paths can be made simpler. The path ["NORTH", "WEST", "SOUTH", "EAST"] is not reducible. 
+"NORTH" and "WEST", "WEST" and "SOUTH", "SOUTH" and "EAST" are not directly opposite of each other and can't become such. 
+Hence the result path is itself : ["NORTH", "WEST", "SOUTH", "EAST"].
+
+In ["NORTH", "SOUTH", "EAST", "WEST"], the direction "NORTH" + "SOUTH" is going north and coming back right away.
+The path becomes ["EAST", "WEST"], now "EAST" and "WEST" annihilate each other, therefore, the final result is [].
+
+In ["NORTH", "EAST", "WEST", "SOUTH", "WEST", "WEST"], "NORTH" and "SOUTH" are not directly opposite but they become 
+directly opposite after the reduction of "EAST" and "WEST" so the whole path is reducible to ["WEST", "WEST"].
+*/
+type Direction = "NORTH" | "SOUTH" | "EAST" | "WEST";
+
+function directionSimplyfier(directions: Direction[]): Direction[] | [] {
+  const dirInNum = directions.map((item) => {
+    if (item === "NORTH") return 1;
+    else if (item === "SOUTH") return -1;
+    else if (item === "WEST") return 2;
+    else return -2;
+  });
+  const dirReduce: any[] = dirInNum.reduce((acc: number[], item: number) => {
+    if (item + acc[acc.length - 1] === 0) {
+      acc.pop();
+    } else {
+      acc.push(item);
+    }
+    return acc;
+  }, []);
+
+  if (dirReduce.length === 0) return dirReduce;
+
+  const dirInStr: Direction[] = dirReduce.map((item) => {
+    if (item === 1) return "NORTH";
+    else if (item === -1) return "SOUTH";
+    else if (item === 2) return "WEST";
+    else return "EAST";
+  });
+  return dirInStr;
+}
+
+console.log(
+  directionSimplyfier(["NORTH", "EAST", "WEST", "SOUTH", "WEST", "WEST"])
+);
+
+console.log(directionSimplyfier(["NORTH", "SOUTH", "EAST", "WEST"]));
