@@ -464,27 +464,32 @@ url = "https://www.cnet.com"                -> domain name = cnet"
 */
 
 function extractDomain(url: string): string {
-  let removedProtocol = "";
-  let domainStart = "";
+  // Variant 1 - parsing url using URL constructor
+  const urlObj = new URL(url);
 
-  if (url.startsWith("https://")) {
-    removedProtocol = url.slice(8);
-  } else if (url.startsWith("http://")) {
-    removedProtocol = url.slice(7);
-  } else return "Url must starts with protocol";
+  let hostName = urlObj.hostname;
+  if (hostName.startsWith("www")) {
+    hostName = hostName.slice(4);
+  }
+  const dotIdx = hostName.lastIndexOf(".");
+  const domainName = hostName.slice(0, dotIdx);
+  return domainName;
 
-  if (removedProtocol.startsWith("www")) {
-    domainStart = removedProtocol.slice(4);
-  } else domainStart = removedProtocol;
+  // Variant 2 - parsing url using regex;
 
-  const dotIdx = domainStart.search(/[.]/);
-  const domainUrl = domainStart.slice(0, dotIdx);
-  return domainUrl;
+  // const urlHost = url.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b/gi);
+  // let hostName = urlHost ? urlHost.join("") : null;
+  // if (!hostName) return "Provided url is incorrect";
+
+  // if (hostName.startsWith("www")) {
+  //   hostName = hostName.slice(4);
+  // }
+  // const dotIdx = hostName.lastIndexOf(".");
+  // const domainName = hostName.slice(0, dotIdx);
+  // return domainName;
 }
 
-console.log(
-  extractDomain("https://www.codewars.com/kata/514a024011ea4fb54200004b")
-);
+console.log(extractDomain("http://github.com/carbonfive/raygun"));
 
 // KATA #13
 /*
@@ -735,3 +740,17 @@ console.log(
 );
 
 console.log(directionSimplyfier(["NORTH", "SOUTH", "EAST", "WEST"]));
+
+// KATA #19
+/*
+You need to write regex that will validate a password to make sure it meets the following criteria:
+    At least six characters long
+    contains a lowercase letter
+    contains an uppercase letter
+    contains a digit
+    only contains alphanumeric characters (note that '_' is not alphanumeric)
+*/
+
+// /[\da-zA-Z]{6,}/g;
+// or
+// ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$
