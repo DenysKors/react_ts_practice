@@ -754,3 +754,31 @@ You need to write regex that will validate a password to make sure it meets the 
 // /[\da-zA-Z]{6,}/g;
 // or
 // ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$
+
+// KATA #20
+/*
+Implement a function that receives two IPv4 addresses, and returns the number of addresses 
+between them (including the first one, excluding the last one).
+All inputs will be valid IPv4 addresses in the form of strings. The last address will always be greater than the first one.
+With input "10.0.0.0", "10.0.0.50"  => return   50 
+With input "10.0.0.0", "10.0.1.0"   => return  256 
+With input "20.0.0.10", "20.0.1.0"  => return  246
+*/
+
+function ipAddrAmount(ip1: string, ip2: string): number | void {
+  const ipArr1 = ip1.split(".");
+  const ipArr2 = ip2.split(".");
+  const totalAmount = ipArr2.reduce(
+    (acc: number, value: string, idx: number) => {
+      const numDiff = Number(value) - Number(ipArr1[idx]);
+      if (idx === 0) return acc + numDiff * 256 * 256 * 256;
+      else if (idx === 1) return acc + numDiff * 256 * 256;
+      else if (idx === 2) return acc + numDiff * 256;
+      else return acc + numDiff;
+    },
+    0
+  );
+  return totalAmount;
+}
+
+console.log(ipAddrAmount("20.0.0.10", "20.0.1.0"));
