@@ -1087,7 +1087,70 @@ function numToWords(num: number): string {
       " " +
       oneDigitSpell(fourthChar);
     return numSpell;
+  } else if (
+    num > 1000 &&
+    num < 10000 &&
+    num.toString().charAt(1) === "0" &&
+    num.toString().charAt(2) !== "0" &&
+    num.toString().charAt(3) !== "0"
+  ) {
+    const firstChar = num.toString().charAt(0);
+    const thirdChar = num.toString().charAt(2) + "0";
+    const fourthChar = num.toString().charAt(3);
+    const numSpell =
+      oneDigitSpell(firstChar) +
+      " " +
+      "thousand" +
+      " " +
+      dozenDigitSpell(thirdChar) +
+      " " +
+      oneDigitSpell(fourthChar);
+    return numSpell;
+  } else if (
+    num > 1000 &&
+    num < 10000 &&
+    num.toString().charAt(1) !== "0" &&
+    num.toString().charAt(2) === "0" &&
+    num.toString().charAt(3) !== "0"
+  ) {
+    const firstChar = num.toString().charAt(0);
+    const secondChar = num.toString().charAt(1);
+    const fourthChar = num.toString().charAt(3);
+    const numSpell =
+      oneDigitSpell(firstChar) +
+      " " +
+      "thousand" +
+      " " +
+      oneDigitSpell(secondChar) +
+      " " +
+      "hundred" +
+      " " +
+      oneDigitSpell(fourthChar);
+    return numSpell;
   } else return "soon";
 }
 
-console.log(numToWords(5025));
+console.log(numToWords(7505));
+
+// const simpleNum = (num:number):string=> {
+//   if (
+//     num > 1000 &&
+//     num < 10000 &&
+//   ) {
+//     const firstChar = num.toString().charAt(0);
+//     const secondChar = num.toString().charAt(1);
+//     const thirdChar = num.toString().charAt(2);
+//     const fourthChar = num.toString().charAt(3);
+//     const numSpell =
+//       oneDigitSpell(firstChar) +
+//       " " +
+//       "thousand" +
+//       " " +
+//       oneDigitSpell(secondChar) +
+//       " " +
+//       "hundred" +
+//       " " +
+//       oneDigitSpell(fourthChar);
+//     return numSpell;
+//   } else return "soon";
+// }
