@@ -1180,20 +1180,32 @@ function numToWords(num: number): string {
     const firstTwoChars = num.toString().slice(0, 2);
     const firstChar = num.toString().charAt(0) + "0";
     const secondChar = num.toString().charAt(1);
-    const firstTwoNum =
-      parseInt(num.toString().charAt(0)) >= 2 &&
-      parseInt(num.toString().charAt(1)) > 0
+    const thirdChar = num.toString().charAt(2);
+    const fourthChar = num.toString().charAt(3);
+    const fourthCharWithZero = fourthChar + "0";
+    const fifthChar = num.toString().charAt(4);
+    const lastTwoChars = num.toString().slice(-2);
+    const firstTwoNums =
+      parseInt(num.toString().charAt(0)) >= 2 && parseInt(secondChar) > 0
         ? `${newDozenDigitSpell(firstChar)} ${oneDigitSpell(secondChar)}`
         : newDozenDigitSpell(firstTwoChars);
-    // const thirdChar = num.toString().charAt(2);
-    // const fourthChar = num.toString().charAt(3);
-    // const lastTwoChars = num.toString().slice(-2);
-    const numSpell = firstTwoNum + " " + "thousand";
+    const thirdNum =
+      parseInt(thirdChar) === 0 ? "" : ` ${oneDigitSpell(thirdChar)} hundred`;
+    const fourthNum =
+      parseInt(fourthChar) === 0 ? ` ${oneDigitSpell(fifthChar)}` : "";
+    const lastTwoNums =
+      parseInt(fourthChar) > 1 && parseInt(fifthChar) !== 0
+        ? ` ${newDozenDigitSpell(fourthCharWithZero)} ${oneDigitSpell(
+            fifthChar
+          )}`
+        : ` ${newDozenDigitSpell(lastTwoChars)}`;
+    const numSpell =
+      firstTwoNums + " " + "thousand" + thirdNum + fourthNum + lastTwoNums;
     return numSpell;
   } else return "soon";
 }
 
-console.log(numToWords(99000));
+console.log(numToWords(37291));
 
 // const simpleNum = (num:number):string=> {
 //   if (
