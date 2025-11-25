@@ -830,68 +830,7 @@ function numToWords(num: number): string {
         return "";
     }
   }
-  function twoDigitSpell(numCount: number | string): string {
-    let number;
-    if (typeof numCount === "string") {
-      number = parseInt(numCount);
-    } else {
-      number = numCount;
-    }
-    switch (number) {
-      case 11:
-        return "eleven";
-      case 12:
-        return "twelve";
-      case 13:
-        return "thirteen";
-      case 14:
-        return "fourteen";
-      case 15:
-        return "fifteen";
-      case 16:
-        return "sixteen";
-      case 17:
-        return "seventeen";
-      case 18:
-        return "eighteen";
-      case 19:
-        return "nineteen";
-      default:
-        return "";
-    }
-  }
   function dozenDigitSpell(numCount: number | string): string {
-    let number;
-    if (typeof numCount === "string") {
-      number = parseInt(numCount);
-    } else {
-      number = numCount;
-    }
-    switch (number) {
-      case 10:
-        return "ten";
-      case 20:
-        return "twenty";
-      case 30:
-        return "thirty";
-      case 40:
-        return "fourty";
-      case 50:
-        return "fifty";
-      case 60:
-        return "sixty";
-      case 70:
-        return "seventy";
-      case 80:
-        return "eighty";
-      case 90:
-        return "ninety";
-      default:
-        return "";
-    }
-  }
-
-  function newDozenDigitSpell(numCount: number | string): string {
     let number;
     if (typeof numCount === "string") {
       number = parseInt(numCount);
@@ -941,240 +880,56 @@ function numToWords(num: number): string {
   }
 
   if (num >= 0 && num < 10) return oneDigitSpell(num);
-  else if (num > 10 && num < 20) return twoDigitSpell(num);
+  else if (num > 10 && num < 20) return dozenDigitSpell(num);
   else if (num >= 10 && num < 100 && num.toString().charAt(1) === "0")
     return dozenDigitSpell(num);
   else if (num > 20 && num < 100 && num.toString().charAt(1) !== "0") {
-    const firstChar = num.toString().charAt(0) + "0";
+    const firstCharWithZero = num.toString().charAt(0) + "0";
     const secondChar = num.toString().charAt(1);
     const numSpell =
-      dozenDigitSpell(firstChar) + " " + oneDigitSpell(secondChar);
+      dozenDigitSpell(firstCharWithZero) + " " + oneDigitSpell(secondChar);
     return numSpell;
-  } else if (
-    num >= 100 &&
-    num < 1000 &&
-    num.toString().charAt(1) === "0" &&
-    num.toString().charAt(2) === "0"
-  ) {
+  } else if (num >= 100 && num < 1000) {
     const firstChar = num.toString().charAt(0);
-    const numSpell = oneDigitSpell(firstChar) + " " + "hundred";
-    return numSpell;
-  } else if (
-    num > 100 &&
-    num < 1000 &&
-    num.toString().charAt(1) === "0" &&
-    num.toString().charAt(2) !== "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
+    const secondChar = num.toString().charAt(1);
     const thirdChar = num.toString().charAt(2);
+    const secondCharWithZero = secondChar + "0";
+    const lastTwoChars = num.toString().slice(-2);
+    const thirdNum =
+      parseInt(secondChar) === 0 && parseInt(thirdChar) !== 0
+        ? oneDigitSpell(thirdChar)
+        : "";
+    const lastTwoNums =
+      parseInt(secondChar) > 1 && parseInt(thirdChar) !== 0
+        ? `${dozenDigitSpell(secondCharWithZero)} ${oneDigitSpell(thirdChar)}`
+        : `${dozenDigitSpell(lastTwoChars)}`;
     const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "hundred" +
-      " " +
-      oneDigitSpell(thirdChar);
+      oneDigitSpell(firstChar) + " " + "hundred" + " " + thirdNum + lastTwoNums;
     return numSpell;
-  } else if (
-    num > 100 &&
-    num < 1000 &&
-    num.toString().charAt(1) !== "0" &&
-    num.toString().charAt(2) === "0"
-  ) {
+  } else if (num >= 1000 && num < 10000) {
     const firstChar = num.toString().charAt(0);
-    const twoChars = num.toString().slice(-2);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "hundred" +
-      " " +
-      dozenDigitSpell(twoChars);
-    return numSpell;
-  } else if (num > 100 && num < 1000 && num.toString().charAt(1) === "1") {
-    const firstChar = num.toString().charAt(0);
-    const twoChars = num.toString().slice(-2);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "hundred" +
-      " " +
-      twoDigitSpell(twoChars);
-    return numSpell;
-  } else if (num > 100 && num < 1000) {
-    const firstChar = num.toString().charAt(0);
-    const secondChar = num.toString().charAt(1) + "0";
+    const secondChar = num.toString().charAt(1);
     const thirdChar = num.toString().charAt(2);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "hundred" +
-      " " +
-      dozenDigitSpell(secondChar) +
-      " " +
-      oneDigitSpell(thirdChar);
-    return numSpell;
-  } else if (
-    num >= 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) === "0" &&
-    num.toString().charAt(2) === "0" &&
-    num.toString().charAt(3) === "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const numSpell = oneDigitSpell(firstChar) + " " + "thousand";
-    return numSpell;
-  } else if (
-    num >= 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) === "0" &&
-    num.toString().charAt(2) === "0" &&
-    num.toString().charAt(3) !== "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const lastChar = num.toString().charAt(3);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "thousand" +
-      " " +
-      oneDigitSpell(lastChar);
-    return numSpell;
-  } else if (
-    num > 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) === "0" &&
-    num.toString().charAt(2) === "1" &&
-    num.toString().charAt(3) !== "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const twoChars = num.toString().slice(-2);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "thousand" +
-      " " +
-      twoDigitSpell(twoChars);
-    return numSpell;
-  } else if (
-    num > 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) === "0" &&
-    num.toString().charAt(2) !== "0" &&
-    num.toString().charAt(3) === "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const lastTwoChars = num.toString().slice(-2);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "thousand" +
-      " " +
-      dozenDigitSpell(lastTwoChars);
-    return numSpell;
-  } else if (
-    num > 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) !== "0" &&
-    num.toString().charAt(2) !== "0" &&
-    num.toString().charAt(3) === "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const secondChar = num.toString().charAt(1);
-    const lastTwoChars = num.toString().slice(-2);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "thousand" +
-      " " +
-      oneDigitSpell(secondChar) +
-      " " +
-      "hundred" +
-      " " +
-      dozenDigitSpell(lastTwoChars);
-    return numSpell;
-  } else if (
-    num > 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) !== "0" &&
-    num.toString().charAt(2) === "1" &&
-    num.toString().charAt(3) !== "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const secondChar = num.toString().charAt(1);
-    const lastTwoChars = num.toString().slice(-2);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "thousand" +
-      " " +
-      oneDigitSpell(secondChar) +
-      " " +
-      "hundred" +
-      " " +
-      twoDigitSpell(lastTwoChars);
-    return numSpell;
-  } else if (
-    num > 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) !== "0" &&
-    num.toString().charAt(2) !== "0" &&
-    num.toString().charAt(3) !== "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const secondChar = num.toString().charAt(1);
-    const thirdChar = num.toString().charAt(2) + "0";
     const fourthChar = num.toString().charAt(3);
+    const thirdCharWithZero = thirdChar + "0";
+    const lastTwoChars = num.toString().slice(-2);
+    const secondNum =
+      parseInt(secondChar) === 0 ? "" : ` ${oneDigitSpell(secondChar)} hundred`;
+    const fourthNum =
+      parseInt(thirdChar) === 0 && parseInt(fourthChar) !== 0
+        ? ` ${oneDigitSpell(fourthChar)}`
+        : "";
+    const lastTwoNums =
+      parseInt(thirdChar) > 1 && parseInt(fourthChar) !== 0
+        ? ` ${dozenDigitSpell(thirdCharWithZero)} ${oneDigitSpell(fourthChar)}`
+        : ` ${dozenDigitSpell(lastTwoChars)}`;
     const numSpell =
       oneDigitSpell(firstChar) +
       " " +
       "thousand" +
-      " " +
-      oneDigitSpell(secondChar) +
-      " " +
-      "hundred" +
-      " " +
-      dozenDigitSpell(thirdChar) +
-      " " +
-      oneDigitSpell(fourthChar);
-    return numSpell;
-  } else if (
-    num > 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) === "0" &&
-    num.toString().charAt(2) !== "0" &&
-    num.toString().charAt(3) !== "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const thirdChar = num.toString().charAt(2) + "0";
-    const fourthChar = num.toString().charAt(3);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "thousand" +
-      " " +
-      dozenDigitSpell(thirdChar) +
-      " " +
-      oneDigitSpell(fourthChar);
-    return numSpell;
-  } else if (
-    num > 1000 &&
-    num < 10000 &&
-    num.toString().charAt(1) !== "0" &&
-    num.toString().charAt(2) === "0" &&
-    num.toString().charAt(3) !== "0"
-  ) {
-    const firstChar = num.toString().charAt(0);
-    const secondChar = num.toString().charAt(1);
-    const fourthChar = num.toString().charAt(3);
-    const numSpell =
-      oneDigitSpell(firstChar) +
-      " " +
-      "thousand" +
-      " " +
-      oneDigitSpell(secondChar) +
-      " " +
-      "hundred" +
-      " " +
-      oneDigitSpell(fourthChar);
+      secondNum +
+      fourthNum +
+      lastTwoNums;
     return numSpell;
   } else if (num >= 10000 && num < 100000) {
     const firstTwoChars = num.toString().slice(0, 2);
@@ -1187,46 +942,22 @@ function numToWords(num: number): string {
     const lastTwoChars = num.toString().slice(-2);
     const firstTwoNums =
       parseInt(num.toString().charAt(0)) >= 2 && parseInt(secondChar) > 0
-        ? `${newDozenDigitSpell(firstChar)} ${oneDigitSpell(secondChar)}`
-        : newDozenDigitSpell(firstTwoChars);
+        ? `${dozenDigitSpell(firstChar)} ${oneDigitSpell(secondChar)}`
+        : dozenDigitSpell(firstTwoChars);
     const thirdNum =
       parseInt(thirdChar) === 0 ? "" : ` ${oneDigitSpell(thirdChar)} hundred`;
     const fourthNum =
-      parseInt(fourthChar) === 0 ? ` ${oneDigitSpell(fifthChar)}` : "";
+      parseInt(fourthChar) === 0 && parseInt(fifthChar) !== 0
+        ? ` ${oneDigitSpell(fifthChar)}`
+        : "";
     const lastTwoNums =
       parseInt(fourthChar) > 1 && parseInt(fifthChar) !== 0
-        ? ` ${newDozenDigitSpell(fourthCharWithZero)} ${oneDigitSpell(
-            fifthChar
-          )}`
-        : ` ${newDozenDigitSpell(lastTwoChars)}`;
+        ? ` ${dozenDigitSpell(fourthCharWithZero)} ${oneDigitSpell(fifthChar)}`
+        : ` ${dozenDigitSpell(lastTwoChars)}`;
     const numSpell =
       firstTwoNums + " " + "thousand" + thirdNum + fourthNum + lastTwoNums;
     return numSpell;
-  } else return "soon";
+  } else return "";
 }
 
-console.log(numToWords(37291));
-
-// const simpleNum = (num:number):string=> {
-//   if (
-//     num >= 1000 &&
-//     num < 10000 &&
-//   ) {
-//     const firstChar = num.toString().charAt(0);
-//     const secondChar = num.toString().charAt(1);
-//     const thirdChar = num.toString().charAt(2);
-//     const fourthChar = num.toString().charAt(3);
-// const lastTwoChars = num.toString().slice(-2);
-//     const numSpell =
-//       oneDigitSpell(firstChar) +
-//       " " +
-//       "thousand" +
-//       " " +
-//       oneDigitSpell(secondChar) +
-//       " " +
-//       "hundred" +
-//       " " +
-//       oneDigitSpell(fourthChar);
-//     return numSpell;
-//   } else return "soon";
-// }
+console.log(numToWords(100));
