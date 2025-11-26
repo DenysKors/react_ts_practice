@@ -121,12 +121,13 @@ function showWhoLiked(names: string[]): string {
   }
 }
 
-console.log(showWhoLiked([]));
-console.log(showWhoLiked(["Peter"]));
-console.log(showWhoLiked(["Jacob", "Alex"]));
-console.log(showWhoLiked(["Max", "John", "Mark"]));
-console.log(showWhoLiked(["Alex", "Jacob", "Mark", "Max"]));
+console.log("Kata_1:", showWhoLiked([]));
+console.log("Kata_1:", showWhoLiked(["Peter"]));
+console.log("Kata_1:", showWhoLiked(["Jacob", "Alex"]));
+console.log("Kata_1:", showWhoLiked(["Max", "John", "Mark"]));
+console.log("Kata_1:", showWhoLiked(["Alex", "Jacob", "Mark", "Max"]));
 console.log(
+  "Kata_1:",
   showWhoLiked(["Alex", "Jacob", "Mark", "Max", "Max", "Max", "Max", "Max"])
 );
 
@@ -149,8 +150,8 @@ function createPhoneNumber(digits: number[]): string | Error {
   return phoneNumber;
 }
 
-console.log(createPhoneNumber([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]));
-console.log(createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]));
+console.log("Kata_2:", createPhoneNumber([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]));
+console.log("Kata_2:", createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]));
 
 // KATA #3
 /*
@@ -176,9 +177,9 @@ function highAndLowNumber(numbers: string): string {
   return `${highNumber} ${lowNumber}`;
 }
 
-console.log(highAndLowNumber("1 2 3 4 5"));
-console.log(highAndLowNumber("1 9 3 4 -5"));
-console.log(highAndLowNumber("1"));
+console.log("Kata_3:", highAndLowNumber("1 2 3 4 5"));
+console.log("Kata_3:", highAndLowNumber("1 9 3 4 -5"));
+console.log("Kata_3:", highAndLowNumber("1"));
 
 //KATA #4
 /*
@@ -201,9 +202,9 @@ function maskify(secret: string): string {
   return maskedSecret;
 }
 
-console.log(maskify("4556364607935616"));
-console.log(maskify("64607935616"));
-console.log(maskify("1"));
+console.log("Kata_4:", maskify("4556364607935616"));
+console.log("Kata_4:", maskify("64607935616"));
+console.log("Kata_4:", maskify("1"));
 
 //KATA #5
 /*
@@ -230,8 +231,8 @@ function camelCaseConverter(text: string): string[] | string {
   return convertedText;
 }
 
-console.log(camelCaseConverter("the-stealth-warrior"));
-console.log(camelCaseConverter("The_Stealth-Warrior"));
+console.log("Kata_5:", camelCaseConverter("the-stealth-warrior"));
+console.log("Kata_5:", camelCaseConverter("The_Stealth-Warrior"));
 
 //KATA #6
 /*
@@ -280,7 +281,7 @@ function nextVersion(version: string): string | string[] {
   return nextVersion;
 }
 
-console.log(nextVersion("10.1.5.9.9"));
+console.log("Kata_6:", nextVersion("10.1.5.9.9"));
 
 //KATA #7
 /*
@@ -309,7 +310,7 @@ function persistence(num: number): string | number {
   return counter;
 }
 
-console.log(persistence(999));
+console.log("Kata_7:", persistence(999));
 
 // KATA #8
 /*
@@ -339,8 +340,8 @@ function sortWords(sentence: string): string {
   return sortedSentence;
 }
 
-console.log(sortWords("is2 Thi1s T4est 3a"));
-console.log(sortWords("4of Fo1r pe6ople g3ood th5e the2"));
+console.log("Kata_8:", sortWords("is2 Thi1s T4est 3a"));
+console.log("Kata_8:", sortWords("4of Fo1r pe6ople g3ood th5e the2"));
 
 // KATA #9
 /*
@@ -381,8 +382,8 @@ function decryptMsg(msg: string): string | string[] {
   return joinedMsg;
 }
 
-console.log(decryptMsg("72olle 103doo 100ya"));
-console.log(decryptMsg("82yade 115te 103o"));
+console.log("Kata_9:", decryptMsg("72olle 103doo 100ya"));
+console.log("Kata_9:", decryptMsg("82yade 115te 103o"));
 
 // KATA #10
 /*
@@ -412,11 +413,11 @@ class Lamp {
 }
 
 const lamp = new Lamp("green");
-console.log(lamp);
+console.log("Kata_10:", lamp);
 lamp.toggleSwitch();
-console.log(lamp.state);
+console.log("Kata_10:", lamp.state);
 lamp.toggleSwitch();
-console.log(lamp.state);
+console.log("Kata_10:", lamp.state);
 
 // KATA #11
 /*
@@ -452,8 +453,11 @@ function createHashtag(text: string): string | boolean {
   return hashTagText;
 }
 
-console.log(createHashtag("   hello     world   "));
-console.log(createHashtag(" Hello there thanks for trying my Kata"));
+console.log("Kata_11:", createHashtag("   hello     world   "));
+console.log(
+  "Kata_11:",
+  createHashtag(" Hello there thanks for trying my Kata")
+);
 
 // KATA #12
 /*
@@ -489,7 +493,7 @@ function extractDomain(url: string): string {
   // return domainName;
 }
 
-console.log(extractDomain("http://github.com/carbonfive/raygun"));
+console.log("Kata_12:", extractDomain("http://github.com/carbonfive/raygun"));
 
 // KATA #13
 /*
@@ -513,7 +517,7 @@ function convertPascalCase(text: string | number): string {
   const snakeCaseText = lowerCaseChars.join("_");
   return snakeCaseText;
 }
-console.log(convertPascalCase("MoviesAndBooks"));
+console.log("Kata_13:", convertPascalCase("MoviesAndBooks"));
 
 // KATA #14
 /*
@@ -581,7 +585,7 @@ function choosePresent(
 
   return uniqueMatchedNames;
 }
-console.log(choosePresent(wishlist, presentsSpecs));
+console.log("Kata_14:", choosePresent(wishlist, presentsSpecs));
 
 // KATA #15
 /*
@@ -624,8 +628,8 @@ function formattedPrice(number: number): string {
     return formattedNum;
   }
 }
-console.log(formattedPrice(13253.5123));
-console.log(formattedPrice(-1325300));
+console.log("Kata_15:", formattedPrice(13253.5123));
+console.log("Kata_15:", formattedPrice(-1325300));
 
 // KATA #16
 /*
@@ -663,8 +667,8 @@ function formattedTime(timeInSec: number): string {
   return `${numToStrHours}:${numToStrMinutes}:${numToStrSeconds}`;
 }
 
-console.log(formattedTime(3600));
-console.log(formattedTime(359999));
+console.log("Kata_16:", formattedTime(3600));
+console.log("Kata_16:", formattedTime(359999));
 
 // KATA #17
 /*
@@ -691,7 +695,7 @@ function rgbToHexConvert(red: number, green: number, blue: number): string {
   const hexNumber = `#${hexDigits}`;
   return hexNumber;
 }
-console.log(rgbToHexConvert(148, 0, 211));
+console.log("Kata_17:", rgbToHexConvert(148, 0, 211));
 
 // KATA #18
 /*
@@ -736,10 +740,14 @@ function directionSimplyfier(directions: Direction[]): Direction[] | [] {
 }
 
 console.log(
+  "Kata_18:",
   directionSimplyfier(["NORTH", "EAST", "WEST", "SOUTH", "WEST", "WEST"])
 );
 
-console.log(directionSimplyfier(["NORTH", "SOUTH", "EAST", "WEST"]));
+console.log(
+  "Kata_18:",
+  directionSimplyfier(["NORTH", "SOUTH", "EAST", "WEST"])
+);
 
 // KATA #19
 /*
@@ -781,7 +789,7 @@ function ipAddrAmount(ip1: string, ip2: string): number | void {
   return totalAmount;
 }
 
-console.log(ipAddrAmount("20.0.0.10", "20.0.1.0"));
+console.log("Kata_20:", ipAddrAmount("20.0.0.10", "20.0.1.0"));
 
 // KATA #21
 /*
@@ -960,4 +968,4 @@ function numToWords(num: number): string {
   } else return "";
 }
 
-console.log(numToWords(100));
+console.log("Kata_21:", numToWords(99205));
