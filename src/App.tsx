@@ -969,3 +969,20 @@ function numToWords(num: number): string {
 }
 
 console.log("Kata_21:", numToWords(99205));
+
+// KATA #22
+/*
+You are given an integer array a that contains only digits 0-9. Remove all zeros from the start and end of a.
+It is guaranteed that array a has at least two non-zero elements.
+Less than 53 characters.
+a = [0, 9, 0, 4] --> [9, 0, 4]
+a = [0, 9, 5, 0, 0, 0, 0, 2, 0, 0] --> [9, 5, 0, 0, 0, 0, 2]
+a = [1, 6, 0, 2] --> [1, 6, 0, 2]
+*/
+
+function removeZeros(a: number[]): number[] {
+  while (a[0] === 0) a.splice(0, 1);
+  while (a[a.length - 1] === 0) a.splice(-1, 1);
+  return a;
+}
+console.log(removeZeros([0, 9, 5, 0, 0, 0, 0, 2, 0, 0]));
