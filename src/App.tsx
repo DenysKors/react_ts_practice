@@ -985,4 +985,37 @@ function removeZeros(a: number[]): number[] {
   while (a[a.length - 1] === 0) a.splice(-1, 1);
   return a;
 }
-console.log(removeZeros([0, 9, 5, 0, 0, 0, 0, 2, 0, 0]));
+console.log("Kata_22:", removeZeros([0, 9, 5, 0, 0, 0, 0, 2, 0, 0]));
+
+//KATA #23
+/*
+Finish the namespace function so that it sets or gets the value at the path specified. 
+The first argument should be the root object that the path belongs to. The 2nd argument is the path itself 
+and the 3rd optional argument is the value to set at the path.
+If a value is provided then the path will be set to that value. Any objects not present within the path will be 
+created automatically in order for the path to be successfully set.
+If no value is provided the the function will return the value at the path given. If the path is not valid/present then undefined will be returned. 
+*/
+interface RootObj {
+  [key: string]: string;
+}
+
+function setGetValue(
+  obj: RootObj,
+  path: string,
+  value?: string
+): RootObj | string | undefined {
+  if (!value && !obj.hasOwnProperty(path)) return undefined;
+  else if (!value && obj.hasOwnProperty(path)) return obj[path];
+  else if (!obj.hasOwnProperty(path)) {
+    Object.defineProperty(obj, path, { value, writable: true });
+    return obj;
+  } else if (value && obj.hasOwnProperty(path)) {
+    obj[path] = value;
+    return obj;
+  } else return undefined;
+}
+const getSetObj: RootObj = {
+  material: "wood",
+};
+console.log("Kata_23:", setGetValue(getSetObj, "surface", "sharp"));
