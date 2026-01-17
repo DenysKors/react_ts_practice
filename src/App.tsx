@@ -1019,3 +1019,51 @@ const getSetObj: RootObj = {
   material: "wood",
 };
 console.log("Kata_23:", setGetValue(getSetObj, "surface", "sharp"));
+
+//KATA #24
+/*
+Create a basic UriBuilder object that will be used specifically to build query params on an existing URI.
+It should support a params property and a build method. It will handle the URL having pre-existing params that need to be managed.
+The URL must be properly encoded (i.e. "a b" should be encoded as "a%20b")
+*/
+
+interface ParamsObj {
+  [key: string]: string | number;
+}
+
+class URIBuilder {
+  userUrl: string;
+  params: ParamsObj;
+
+  constructor(userUrl: string) {
+    this.userUrl = userUrl;
+    this.params = {};
+  }
+
+  set(param: string) {
+    this.params[param];
+  }
+
+  build() {
+    const { params, userUrl } = this;
+    const paramsKeys = Object.keys(params);
+    if (paramsKeys.length === 0) return userUrl;
+
+    const paramsValues = Object.values(params);
+    const paramsArr = [];
+    for (let i = 0; i <= paramsKeys.length - 1; i += 1) {
+      let paramsPair =
+        paramsKeys[i] + "=" + encodeURIComponent(paramsValues[i]);
+      paramsArr.push(paramsPair);
+    }
+    const urlWithParams = userUrl + "?" + paramsArr.join("&");
+    return urlWithParams;
+  }
+}
+const newUrl = new URIBuilder("http://www.codewars.com");
+newUrl.params.page = 1;
+newUrl.params.language = "javascript and python";
+console.log("Kata_24:", newUrl.build());
+delete newUrl.params.language;
+newUrl.params.page = 2;
+console.log("Rata_24:", newUrl.build());
