@@ -1067,3 +1067,55 @@ console.log("Kata_24:", newUrl.build());
 delete newUrl.params.language;
 newUrl.params.page = 2;
 console.log("Rata_24:", newUrl.build());
+
+//KATA #25
+/*
+The purpose of this kata is to implement the undoRedo function.
+This function takes an object and returns an object that has these actions to be performed on the object passed as a parameter:
+set(key, value) Assigns the value to the key. If the key does not exist, creates it.
+get(key) Returns the value associated to the key.
+del(key) removes the key from the object.
+undo() Undo the last operation (set or del) on the object. Throws an exception if there is no operation to undo.
+redo() Redo the last undo operation (redo is only possible after an undo). Throws an exception if there is no operation to redo.
+After set() or del() are called, there is nothing to redo.
+All actions must affect to the object passed to undoRedo(object) function. So you can not work with a copy of the object.
+Any set/del after an undo should disallow new redos.
+*/
+interface UserObj {
+  [key: string]: string | number;
+}
+
+class UndoRedo {
+  constructor(private object: UserObj) {}
+
+  get(key: string) {
+    return this.object[key];
+  }
+
+  set(key: string, value: string | number) {
+    const { object } = this;
+    object.hasOwnProperty(key)
+      ? (object[key] = value)
+      : Object.defineProperty(object, key, {
+          value,
+          writable: true,
+          configurable: true,
+        });
+  }
+
+  del(key: string) {
+    if (this.object.hasOwnProperty(key)) {
+      delete this.object[key];
+    } else {
+      console.log("This key does not exist");
+      return;
+    }
+  }
+}
+
+const myUndoRedo = new UndoRedo({});
+myUndoRedo.set("age", 5);
+console.log(myUndoRedo.get("age"));
+myUndoRedo.set("height", 160);
+console.log(myUndoRedo.get("height"));
+myUndoRedo.del("age");
